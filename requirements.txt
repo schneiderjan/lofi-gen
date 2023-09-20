@@ -2,3 +2,4 @@ pandas
 music21
 scikit-learn
 seaborn
+pydub
