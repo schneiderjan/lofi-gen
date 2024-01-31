@@ -4,6 +4,7 @@ import music21
 from music21 import converter, instrument, note, chord
 import subprocess
 from pydub import AudioSegment
+import pickle
 
 def extract_notes(file):
     notes = []
@@ -23,7 +24,7 @@ def extract_notes(file):
 def store_mp3(midi_fp):
     # Define paths for temporary and output files
     temp_wav_file = "temp_output.wav"
-    output_audio_file = "output.mp3"
+    output_audio_file = "sample.mp3"
 
     # Convert the MIDI score to a WAV file using FluidSynth
     fs_cmd = [
@@ -47,9 +48,11 @@ if __name__ == "__main__":
     mid_fps = glob.glob(os.path.join(Path.cwd(), "data", "lofi_midi", "*mid"))
     print(f"Found {len(mid_fps)} mid files.")
 
-    store_mp3(mid_fps[1])
+    store_mp3(mid_fps[1]) # store a sample mp3 file
 
-    # parsed_midis = [converter.parse(midi) for midi in mid_fps]
-    # parsed_midis = parsed_midis[:1]
-    # corpus = extract_notes(parsed_midis)
-    # print(corpus)
+    parsed_midis = [converter.parse(midi) for midi in mid_fps]
+    corpus = extract_notes(parsed_midis)
+    # Pickle the corpus and save it to disk
+    with open(os.path.join(Path.cwd(), "data", "corpus", "corpus.pkl"), "wb") as file:
+        pickle.dump(corpus, file)
+    print("Corpus saved as corpus.pkl")

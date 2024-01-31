@@ -9,7 +9,8 @@
                 "ms-python.python",
                 "ms-python.vscode-pylance",
                 "ms-python.black-formatter",
-                "njpwerner.autodocstring"
+                "njpwerner.autodocstring",
+                "ms-azuretools.vscode-docker"
             ]
         }
     },
